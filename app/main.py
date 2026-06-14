@@ -9,4 +9,3 @@ def add(a: int, b: int) -> int:
 if __name__ == "__main__":
     print(greet("World"))
     print(add(1, 2))
-    
