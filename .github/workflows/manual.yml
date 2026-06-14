@@ -1,0 +1,39 @@
+name: Manual Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target environment"
+        required: true
+        default: "staging"
+        type: choice
+        options:
+          - staging
+          - production
+      version:
+        description: "Image version to deploy"
+        required: true
+        default: "latest"
+        type: string
+
+jobs:
+  deploy:
+    name: Deploy to ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log deployment
+        run: |
+          echo "Starting deployment..."
+          echo "Environment: ${{ inputs.environment }}"
+          echo "Version: ${{ inputs.version }}"
+          echo "Triggered by: ${{ github.actor }}"
+
+      - name: Simulate deploy
+        run: |
+          echo "Pulling image ghcr.io/${{ github.repository }}:${{ inputs.version }}"
+          echo "Deploying to ${{ inputs.environment }}..."
+          sleep 2
+          echo "Deploy complete!"
